@@ -1,0 +1,139 @@
+{% extends 'inventaris/base.html' %}
+
+{% block title %}
+Master Lokasi
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Master Lokasi</h1>
+        <p>Kelola rak, area, dan lokasi penyimpanan gudang</p>
+    </div>
+</div>
+
+
+<div class="table-toolbar">
+
+    <a href="{% url 'tambah_lokasi' %}" class="btn">
+        <i class="bi bi-plus-circle"></i>
+        Tambah Lokasi
+    </a>
+
+    <a href="{% url 'import_excel' 'lokasi' %}" class="btn-import">
+        <i class="bi bi-file-earmark-excel"></i>
+        Import Excel
+    </a>
+
+    {% if data_lokasi %}
+
+    <form
+        method="POST"
+        action="{% url 'hapus_semua_lokasi' %}"
+        onsubmit="return confirm('PERINGATAN: Hapus seluruh lokasi gudang?')"
+    >
+        {% csrf_token %}
+
+        <button type="submit" class="btn-danger">
+            <i class="bi bi-trash3"></i>
+            Hapus Semua
+        </button>
+    </form>
+
+    {% endif %}
+
+</div>
+
+
+<div class="card">
+
+    <table class="modern-table">
+
+        <thead>
+            <tr>
+                <th>Kode Lokasi</th>
+                <th>Nama Lokasi</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+
+        {% for lokasi in data_lokasi %}
+
+            <tr>
+
+                <td>
+
+                    <div class="product-name">
+
+                        <i class="bi bi-geo-alt"></i>
+
+                        <span class="location-badge">
+                            {{ lokasi.kode_lokasi }}
+                        </span>
+
+                    </div>
+
+                </td>
+
+                <td>
+                    {{ lokasi.nama_lokasi }}
+                </td>
+
+                <td>
+
+                    <div class="action-group">
+
+                        <a
+                            href="{% url 'edit_lokasi' lokasi.id %}"
+                            class="action-btn edit"
+                            title="Edit Lokasi"
+                        >
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+
+
+                        <form
+                            method="POST"
+                            action="{% url 'hapus_lokasi' lokasi.id %}"
+                            onsubmit="return confirm('Hapus lokasi {{ lokasi.kode_lokasi }}?')"
+                        >
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="action-btn delete"
+                                title="Hapus Lokasi"
+                            >
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+                <td colspan="3" class="empty-data">
+                    <i class="bi bi-geo-alt"></i>
+                    <br><br>
+                    Belum ada data lokasi
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

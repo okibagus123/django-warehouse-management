@@ -1,0 +1,260 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Stok Barang
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="page-header transaction-page-header">
+
+
+<div>
+
+<h1>
+
+<i class="bi bi-boxes"></i>
+
+Stok Barang
+
+</h1>
+
+
+<p>
+
+Informasi posisi dan jumlah stok barang pada setiap lokasi gudang.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="transaction-hero-panel">
+
+
+<div class="transaction-hero-content">
+
+
+<div class="transaction-hero-badge">
+
+<i class="bi bi-search"></i>
+
+Inventory Tracking
+
+</div>
+
+
+
+<h2>
+Posisi Inventory Saat Ini
+</h2>
+
+
+<p>
+Menampilkan lokasi terakhir dan jumlah barang tersedia.
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- Form Pencarian -->
+<div class="search-filter-container" style="margin-bottom: 20px; display: flex; gap: 10px;">
+    <form method="GET" style="display: flex; gap: 10px; width: 100%;">
+        
+        <!-- Input dengan atribut list dan autocomplete di-nonaktifkan agar browser fokus pada datalist kita -->
+        <input type="text" name="q" value="{{ query }}" list="saran-barang" autocomplete="off" placeholder="Cari barang, SKU, Kategori, atau Lokasi..." 
+               style="padding: 10px; width: 300px; border-radius: 6px; border: 1px solid #444; background: #1e1e2d; color: #fff;">
+        
+        <!-- Data List untuk Suggestions -->
+        <datalist id="saran-barang">
+            {% for item in semua_barang %}
+                <option value="{{ item.nama }}"></option>
+                <option value="{{ item.sku }}"></option>
+            {% endfor %}
+        </datalist>
+
+        <button type="submit" style="padding: 10px 20px; border-radius: 6px; background: #007bff; color: white; border: none; cursor: pointer;">
+            <i class="bi bi-search"></i> Cari
+        </button>
+        {% if query %}
+        <a href="{% url 'stok_barang' %}" style="padding: 10px 20px; border-radius: 6px; background: #6c757d; color: white; text-decoration: none;">Reset</a>
+        {% endif %}
+    </form>
+</div>
+
+<div class="card">
+
+
+<div class="table-container">
+
+
+<table>
+
+
+<thead>
+
+
+<tr>
+
+<th>
+Barang
+</th>
+
+
+<th>
+SKU
+</th>
+
+
+<th>
+Kategori
+</th>
+
+
+<th>
+Lokasi
+</th>
+
+
+<th>
+Jumlah
+</th>
+
+
+<th>
+Status
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+
+<tbody>
+
+
+{% for item in inventory %}
+
+
+<tr>
+
+<td>
+    <a href="{% url 'detail_barang' item.barang.id %}" class="link-detail">
+        {{ item.barang.nama }}
+    </a>
+</td>
+
+<td>
+{{ item.barang.sku }}
+</td>
+
+
+<td>
+
+{{ item.barang.kategori.nama }}
+
+</td>
+
+
+<td>
+
+{{ item.lokasi.nama_lokasi }}
+
+</td>
+
+
+<td>
+
+{{ item.jumlah }}
+{{ item.barang.satuan }}
+
+</td>
+
+
+<td>
+
+
+{% if item.jumlah == 0 %}
+
+<span class="badge-danger">
+Kosong
+</span>
+
+
+{% elif item.jumlah <= item.barang.minimum_stock %}
+
+<span class="badge-warning">
+Menipis
+</span>
+
+
+{% else %}
+
+<span class="badge-success">
+Tersedia
+</span>
+
+
+{% endif %}
+
+
+</td>
+
+
+</tr>
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="6">
+
+Belum ada inventory
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

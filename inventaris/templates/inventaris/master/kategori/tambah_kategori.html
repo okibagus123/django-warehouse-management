@@ -1,0 +1,113 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Tambah Kategori
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="page-header">
+
+
+<h1>
+Tambah Kategori
+</h1>
+
+
+<p>
+Tambahkan kelompok barang baru
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="card form-card">
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+
+<div class="form-grid">
+
+
+{% for field in form %}
+
+
+<div class="form-group">
+
+
+<label>
+{{ field.label }}
+</label>
+
+
+{{ field }}
+
+
+{% if field.errors %}
+
+<small class="error">
+{{ field.errors }}
+</small>
+
+{% endif %}
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+
+<div class="form-action">
+
+
+<button type="submit" class="btn">
+
+<i class="bi bi-save"></i>
+
+Simpan Kategori
+
+</button>
+
+
+
+<a href="{% url 'master_kategori' %}" class="btn-secondary">
+
+Kembali
+
+</a>
+
+
+</div>
+
+
+
+</form>
+
+
+</div>
+
+
+
+{% endblock %}

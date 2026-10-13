@@ -1,0 +1,133 @@
+{% extends 'inventaris/base.html' %}
+
+{% block title %}
+Import {{ jenis|title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header import-page-header">
+    <div>
+        <h1>
+            <i class="bi bi-file-earmark-arrow-up"></i>
+            Import {{ jenis|title }}
+        </h1>
+        <p>
+            Upload file Excel untuk menambahkan data {{ jenis|title }} ke sistem Gudang WMS.
+        </p>
+    </div>
+</div>
+
+<div class="import-excel-page">
+
+    <div class="import-excel-card">
+
+        <div class="import-excel-glow"></div>
+
+        <div class="import-excel-head">
+
+            <div class="import-excel-icon">
+                <i class="bi bi-upload"></i>
+            </div>
+
+            <div class="import-excel-title">
+                <h2>Import Data {{ jenis|title }}</h2>
+                <p>
+                    Pastikan file Excel sesuai dengan format kolom yang ditentukan.
+                </p>
+            </div>
+
+        </div>
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+            class="import-excel-form"
+        >
+            {% csrf_token %}
+
+            <div class="import-field">
+                <label for="file">Pilih File Excel</label>
+                <input
+                    type="file"
+                    name="file"
+                    id="file"
+                    accept=".xlsx,.xls"
+                    required
+                >
+                <small>Format file yang didukung: .xlsx atau .xls</small>
+            </div>
+
+            <div class="import-format-info">
+                <h3>
+                    <i class="bi bi-info-circle"></i>
+                    Format kolom yang diterima
+                </h3>
+
+                <div class="import-format-tags">
+
+                    {% if jenis == 'kategori' %}
+                        <span>nama</span>
+                        <span>deskripsi</span>
+                    {% elif jenis == 'supplier' %}
+                        <span>nama</span>
+                        <span>kontak</span>
+                        <span>alamat</span>
+                    {% elif jenis == 'lokasi' %}
+                        <span>kode</span>
+                        <span>nama</span>
+                    {% elif jenis == 'barang' %}
+                        <span>sku</span>
+                        <span>barcode</span>
+                        <span>nama</span>
+                        <span>kategori</span>
+                        <span>supplier</span>
+                        <span>satuan</span>
+                        <span>minimum_stock</span>
+                        <span>harga_satuan</span>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <div class="import-action-row">
+
+                <button
+                    type="submit"
+                    class="import-submit-btn"
+                >
+                    <i class="bi bi-cloud-arrow-up"></i>
+                    Import Sekarang
+                </button>
+
+                {% if jenis == 'kategori' %}
+                    <a href="{% url 'master_kategori' %}" class="import-back-btn">
+                        <i class="bi bi-arrow-left"></i>
+                        Kembali
+                    </a>
+                {% elif jenis == 'supplier' %}
+                    <a href="{% url 'master_supplier' %}" class="import-back-btn">
+                        <i class="bi bi-arrow-left"></i>
+                        Kembali
+                    </a>
+                {% elif jenis == 'lokasi' %}
+                    <a href="{% url 'master_lokasi' %}" class="import-back-btn">
+                        <i class="bi bi-arrow-left"></i>
+                        Kembali
+                    </a>
+                {% elif jenis == 'barang' %}
+                    <a href="{% url 'master_barang' %}" class="import-back-btn">
+                        <i class="bi bi-arrow-left"></i>
+                        Kembali
+                    </a>
+                {% endif %}
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

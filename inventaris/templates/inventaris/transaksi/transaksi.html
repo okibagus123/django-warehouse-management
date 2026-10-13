@@ -1,0 +1,280 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Transaksi Gudang
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="page-header transaction-page-header">
+
+    <div>
+        <h1>
+            <i class="bi bi-arrow-left-right"></i>
+            Transaksi Gudang
+        </h1>
+
+        <p>
+            Kelola seluruh pergerakan barang masuk, keluar, dan transfer lokasi
+            dengan kontrol stok yang cepat, akurat, dan terintegrasi.
+        </p>
+    </div>
+
+</div>
+
+
+
+<div class="transaction-hero-panel">
+
+    <div class="transaction-hero-overlay"></div>
+
+    <div class="transaction-hero-content">
+
+        <div class="transaction-hero-badge">
+            <i class="bi bi-lightning-charge-fill"></i>
+            Operational Warehouse
+        </div>
+
+        <h2>
+            Pusat Transaksi Inventory
+        </h2>
+
+        <p>
+            Pilih jenis transaksi untuk mencatat aktivitas barang masuk,
+            barang keluar, atau transfer stok antar lokasi gudang.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="transaction-grid">
+
+
+
+    <!-- BARANG MASUK -->
+    <a href="{% url 'barang_masuk' %}"
+       class="transaction-card transaction-in">
+
+        <div class="transaction-glow"></div>
+
+        <div class="transaction-card-top">
+
+            <div class="transaction-icon">
+                <i class="bi bi-box-arrow-in-down"></i>
+            </div>
+
+            <span class="transaction-status">
+                INBOUND
+            </span>
+
+        </div>
+
+
+        <div class="transaction-content">
+
+            <h2>Barang Masuk</h2>
+
+            <p>
+                Catat penerimaan barang dari supplier atau hasil pengadaan
+                untuk menambah stok inventory gudang.
+            </p>
+
+            <ul class="transaction-feature-list">
+                <li><i class="bi bi-check2-circle"></i> Tambah stok otomatis</li>
+                <li><i class="bi bi-check2-circle"></i> Tercatat sebagai movement masuk</li>
+                <li><i class="bi bi-check2-circle"></i> Siap untuk monitoring inventory</li>
+            </ul>
+
+        </div>
+
+
+        <div class="transaction-footer">
+
+            <span>Mulai transaksi masuk</span>
+            <i class="bi bi-arrow-right"></i>
+
+        </div>
+
+    </a>
+
+
+
+
+    <!-- BARANG KELUAR -->
+    <a href="{% url 'barang_keluar' %}"
+       class="transaction-card transaction-out">
+
+        <div class="transaction-glow"></div>
+
+        <div class="transaction-card-top">
+
+            <div class="transaction-icon">
+                <i class="bi bi-box-arrow-up-right"></i>
+            </div>
+
+            <span class="transaction-status">
+                OUTBOUND
+            </span>
+
+        </div>
+
+
+        <div class="transaction-content">
+
+            <h2>Barang Keluar</h2>
+
+            <p>
+                Catat pengeluaran barang untuk distribusi, pemakaian internal,
+                atau kebutuhan operasional lainnya.
+            </p>
+
+            <ul class="transaction-feature-list">
+                <li><i class="bi bi-check2-circle"></i> Kurangi stok secara real-time</li>
+                <li><i class="bi bi-check2-circle"></i> Riwayat barang keluar tersimpan</li>
+                <li><i class="bi bi-check2-circle"></i> Mendukung kontrol pergerakan stok</li>
+            </ul>
+
+        </div>
+
+
+        <div class="transaction-footer">
+
+            <span>Mulai transaksi keluar</span>
+            <i class="bi bi-arrow-right"></i>
+
+        </div>
+
+    </a>
+
+
+
+
+    <!-- TRANSFER -->
+    <a href="{% url 'transfer' %}"
+       class="transaction-card transaction-transfer">
+
+        <div class="transaction-glow"></div>
+
+        <div class="transaction-card-top">
+
+            <div class="transaction-icon">
+                <i class="bi bi-arrow-left-right"></i>
+            </div>
+
+            <span class="transaction-status">
+                TRANSFER
+            </span>
+
+        </div>
+
+
+        <div class="transaction-content">
+
+            <h2>Transfer Lokasi</h2>
+
+            <p>
+                Pindahkan stok barang dari satu lokasi penyimpanan ke lokasi
+                lain tanpa kehilangan jejak inventory.
+            </p>
+
+            <ul class="transaction-feature-list">
+                <li><i class="bi bi-check2-circle"></i> Perpindahan stok lebih rapi</li>
+                <li><i class="bi bi-check2-circle"></i> Antar lokasi tercatat jelas</li>
+                <li><i class="bi bi-check2-circle"></i> Mendukung multi lokasi gudang</li>
+            </ul>
+
+        </div>
+
+
+        <div class="transaction-footer">
+
+            <span>Mulai transfer lokasi</span>
+            <i class="bi bi-arrow-right"></i>
+
+        </div>
+
+    </a>
+
+
+</div>
+
+
+
+
+<div class="transaction-bottom-grid">
+
+
+
+    <a href="{% url 'kontrol_stok' %}"
+       class="card transaction-info-card">
+
+
+        <div class="transaction-info-icon">
+            <i class="bi bi-info-circle-fill"></i>
+        </div>
+
+
+        <div class="transaction-info-content">
+
+            <h3>
+                Kontrol Pergerakan Stok
+            </h3>
+
+
+            <p>
+                Setiap transaksi akan tercatat sebagai histori pergerakan barang
+                dan memengaruhi jumlah inventory pada lokasi terkait secara sistematis.
+            </p>
+
+
+        </div>
+
+
+    </a>
+
+
+
+
+
+    <a href="{% url 'validasi_operasional' %}"
+       class="card transaction-info-card transaction-info-highlight">
+
+
+        <div class="transaction-info-icon warning">
+
+            <i class="bi bi-shield-check"></i>
+
+        </div>
+
+
+        <div class="transaction-info-content">
+
+            <h3>
+                Validasi Operasional
+            </h3>
+
+
+            <p>
+                Pastikan jenis transaksi dipilih dengan benar agar stok masuk,
+                stok keluar, dan transfer lokasi tercatat akurat di modul inventory.
+            </p>
+
+
+        </div>
+
+
+    </a>
+
+
+
+</div>
+
+
+{% endblock %}

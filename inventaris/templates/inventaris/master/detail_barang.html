@@ -1,0 +1,159 @@
+{% extends 'inventaris/base.html' %}
+
+{% block title %}Detail Barang - {{ barang.nama }}{% endblock %}
+
+{% block content %}
+<div class="page-header transaction-page-header">
+    <div>
+        <h1><i class="bi bi-box"></i> Detail Barang</h1>
+        <p>Informasi spesifik, distribusi stok, dan riwayat transaksi barang.</p>
+    </div>
+    <div>
+        <a href="javascript:history.back()" class="btn-back">
+            <i class="bi bi-arrow-left"></i> Kembali
+        </a>
+    </div>
+</div>
+
+<div class="transaction-grid detail-grid-mb">
+    
+    <!-- Informasi Produk & Barcode -->
+    <div class="card product-info-wrapper">
+        <div class="product-info-details">
+            <h3 class="product-info-title">Informasi Produk</h3>
+            <p class="product-info-text"><strong>SKU:</strong> <span class="product-info-value">{{ barang.sku }}</span></p>
+            <p class="product-info-text"><strong>Nama:</strong> <span class="product-info-value">{{ barang.nama }}</span></p>
+            <p class="product-info-text"><strong>Kategori:</strong> <span class="product-info-value">{{ barang.kategori.nama }}</span></p>
+            <p class="product-info-text"><strong>Supplier:</strong> <span class="product-info-value">{{ barang.supplier.nama|default:"-" }}</span></p>
+            <p class="product-info-text"><strong>Batas Minimum:</strong> <span class="text-danger">{{ barang.minimum_stock }} {{ barang.satuan }}</span></p>
+        </div>
+        
+        <!-- Wadah Barcode -->
+        <div class="barcode-container">
+            <svg id="barcode"></svg>
+            <button onclick="printBarcode()" class="btn-print-barcode">
+                <i class="bi bi-printer"></i> Cetak Label
+            </button>
+        </div>
+    </div>
+
+    <div class="transaction-card transaction-transfer">
+        <div class="transaction-content">
+            <h2>Total Stok Tersedia</h2>
+            <h1 style="font-size: 3rem; margin: 10px 0;">{{ total_stok }} <span style="font-size: 1rem; color: #888;">{{ barang.satuan }}</span></h1>
+            <p>Tersebar di {{ stok_lokasi.count }} lokasi penyimpanan.</p>
+        </div>
+    </div>
+</div>
+
+<div class="detail-grid-2col">
+    <!-- Distribusi Lokasi -->
+    <div class="card">
+        <h3 class="detail-table-title"><i class="bi bi-geo-alt"></i> Distribusi Lokasi</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Lokasi</th>
+                        <th>Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in stok_lokasi %}
+                    <tr>
+                        <td>{{ item.lokasi.nama_lokasi }}</td>
+                        <td class="text-highlight-blue">{{ item.jumlah }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="2" class="text-center-muted">Stok kosong di semua lokasi.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Riwayat Transaksi -->
+    <div class="card">
+        <h3 class="detail-table-title"><i class="bi bi-clock-history"></i> Riwayat Transaksi Terakhir</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Tipe</th>
+                        <th>Jumlah</th>
+                        <th>Keterangan Lokasi</th>
+                        <th>User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in riwayat %}
+                    <tr>
+                        <td class="text-nowrap">{{ log.tanggal|date:"d M Y, H:i" }}</td>
+                        <td>
+                            <span class="status-tag {% if log.tipe == 'MASUK' %}status-in{% elif log.tipe == 'KELUAR' %}status-out{% else %}status-transfer{% endif %}">
+                                {{ log.tipe }}
+                            </span>
+                        </td>
+                        <td>{{ log.jumlah }}</td>
+                        <td class="text-muted-small">
+                            {% if log.tipe == 'MASUK' %}
+                                Ke: {{ log.lokasi_tujuan.nama_lokasi|default:"-" }}
+                            {% elif log.tipe == 'KELUAR' %}
+                                Dari: {{ log.lokasi_asal.nama_lokasi|default:"-" }}
+                            {% elif log.tipe == 'TRANSFER' %}
+                                {{ log.lokasi_asal.kode_lokasi|default:"-" }} &rarr; {{ log.lokasi_tujuan.kode_lokasi|default:"-" }}
+                            {% elif log.tipe == 'ADJUSTMENT' %}
+                                Penyesuaian
+                            {% endif %}
+                        </td>
+                        <td>{{ log.user.username|default:"-" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5" class="text-center-muted">Belum ada riwayat transaksi untuk barang ini.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<!-- Injeksi CDN JsBarcode -->
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Render Barcode berdasarkan SKU
+        JsBarcode("#barcode", "{{ barang.sku }}", {
+            format: "CODE128",
+            lineColor: "#000",
+            width: 2,
+            height: 50,
+            displayValue: true,
+            fontSize: 16,
+            background: "transparent"
+        });
+    });
+
+    // Fungsi Cetak Barcode Jendela Baru
+    function printBarcode() {
+        const barcodeSvg = document.getElementById('barcode').outerHTML;
+        const namaBarang = "{{ barang.nama }}";
+        
+        const printWindow = window.open('', '', 'width=400,height=300');
+        printWindow.document.write('<html><head><title>Print Barcode</title></head>');
+        printWindow.document.write('<body style="text-align:center; padding: 20px; font-family: sans-serif;">');
+        printWindow.document.write('<p style="font-weight: bold; font-size: 14px; margin-bottom: 5px;">' + namaBarang + '</p>');
+        printWindow.document.write(barcodeSvg);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        
+        // Jeda sedikit untuk memastikan render SVG selesai sebelum print dialog muncul
+        setTimeout(function() { 
+            printWindow.print(); 
+            printWindow.close(); 
+        }, 500);
+    }
+</script>
+{% endblock %}

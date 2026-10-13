@@ -1,0 +1,319 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Barang Masuk
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="page-header transaction-page-header">
+
+    <div>
+
+        <h1>
+            <i class="bi bi-box-arrow-in-down"></i>
+            Barang Masuk
+        </h1>
+
+
+        <p>
+            Proses penerimaan barang dari supplier dan penambahan stok inventory gudang.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<div class="transaction-form-wrapper">
+
+
+
+<div class="transaction-form-card inbound">
+
+
+
+
+
+<div class="transaction-form-header">
+
+
+    <div class="transaction-form-icon">
+
+        <i class="bi bi-box-arrow-in-down"></i>
+
+    </div>
+
+
+
+    <div>
+
+        <div class="transaction-hero-badge inbound-badge">
+
+            <i class="bi bi-arrow-down-circle"></i>
+
+            INBOUND ACTIVE
+
+        </div>
+
+
+        <h2>
+            Transaksi Barang Masuk
+        </h2>
+
+
+        <span>
+            Receiving dan penambahan stok gudang
+        </span>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="transaction-process-info">
+
+
+    <div>
+
+        <i class="bi bi-check-circle-fill"></i>
+
+        Stok inventory akan diperbarui
+
+    </div>
+
+
+    <div>
+
+        <i class="bi bi-clock-history"></i>
+
+        Riwayat movement tersimpan
+
+    </div>
+
+
+    <div>
+
+        <i class="bi bi-geo-alt-fill"></i>
+
+        Lokasi penyimpanan wajib dipilih
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+
+
+
+<div class="transaction-form-grid">
+
+
+
+
+
+<div class="transaction-field">
+
+
+<label>
+
+<i class="bi bi-box-seam"></i>
+
+Barang
+
+</label>
+
+
+{{ form.barang }}
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="transaction-field">
+
+
+<label>
+
+<i class="bi bi-building"></i>
+
+Lokasi Penyimpanan
+
+</label>
+
+
+{{ form.lokasi }}
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="transaction-field">
+
+
+<label>
+
+<i class="bi bi-plus-square"></i>
+
+Jumlah Masuk
+
+</label>
+
+
+{{ form.jumlah }}
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="transaction-field full">
+
+
+<label>
+
+<i class="bi bi-chat-left-text"></i>
+
+Catatan Transaksi
+
+</label>
+
+
+{{ form.keterangan }}
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="transaction-form-action">
+
+
+
+
+
+<a href="{% url 'transaksi' %}"
+
+class="transaction-back-btn">
+
+
+<i class="bi bi-arrow-left"></i>
+
+Kembali
+
+
+</a>
+
+
+
+
+
+
+<button type="submit"
+
+class="transaction-save-btn inbound-btn">
+
+
+<i class="bi bi-box-arrow-in-down"></i>
+
+
+Proses Inbound
+
+
+</button>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</form>
+
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}

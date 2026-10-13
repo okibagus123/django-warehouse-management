@@ -1,0 +1,168 @@
+{% extends 'inventaris/base.html' %}
+
+{% block title %}
+Master Barang
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Master Barang</h1>
+        <p>Kelola seluruh SKU dan informasi produk gudang</p>
+    </div>
+</div>
+
+
+<div class="table-toolbar">
+
+    <a href="{% url 'tambah_barang' %}" class="btn">
+        <i class="bi bi-plus-circle"></i>
+        Tambah Barang
+    </a>
+
+    <a href="{% url 'import_excel' 'barang' %}" class="btn-import">
+        <i class="bi bi-file-earmark-excel"></i>
+        Import Excel
+    </a>
+
+    {% if daftar_barang %}
+
+    <form
+        method="POST"
+        action="{% url 'hapus_semua_barang' %}"
+        onsubmit="return confirm('PERINGATAN: Hapus seluruh data barang?')"
+    >
+        {% csrf_token %}
+
+        <button type="submit" class="btn-danger">
+            <i class="bi bi-trash3"></i>
+            Hapus Semua
+        </button>
+    </form>
+
+    {% endif %}
+
+</div>
+
+
+<div class="card">
+
+    <table class="modern-table">
+
+        <thead>
+            <tr>
+                <th>SKU</th>
+                <th>Barcode</th>
+                <th>Nama Barang</th>
+                <th>Kategori</th>
+                <th>Supplier</th>
+                <th>Satuan</th>
+                <th>Minimum Stok</th>
+                <th>Harga</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+
+        {% for barang in daftar_barang %}
+
+            <tr>
+
+                <td>
+                    {{ barang.sku }}
+                </td>
+
+                <td>
+                    {{ barang.barcode|default:"-" }}
+                </td>
+
+                <td>
+                    <div class="product-name">
+                        <i class="bi bi-box-seam"></i>
+                        {{ barang.nama }}
+                    </div>
+                </td>
+
+                <td>
+                    <span class="category-badge">
+                        {{ barang.kategori|default:"-" }}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="supplier-name">
+                        {{ barang.supplier|default:"-" }}
+                    </span>
+                </td>
+
+                <td>
+                    {{ barang.satuan }}
+                </td>
+
+                <td>
+                    {{ barang.minimum_stock }}
+                </td>
+
+                <td>
+                    <span class="price">
+                        Rp {{ barang.harga_satuan }}
+                    </span>
+                </td>
+
+                <td>
+
+                    <div class="action-group">
+
+                        <a
+                            href="{% url 'edit_barang' barang.id %}"
+                            class="action-btn edit"
+                            title="Edit Barang"
+                        >
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+
+
+                        <form
+                            method="POST"
+                            action="{% url 'hapus_barang' barang.id %}"
+                            onsubmit="return confirm('Hapus barang {{ barang.nama }}?')"
+                        >
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="action-btn delete"
+                                title="Hapus Barang"
+                            >
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+                <td colspan="9" class="empty-data">
+                    <i class="bi bi-box-seam"></i>
+                    <br><br>
+                    Belum ada data barang
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

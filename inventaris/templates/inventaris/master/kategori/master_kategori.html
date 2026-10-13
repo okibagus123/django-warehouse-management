@@ -1,0 +1,135 @@
+{% extends 'inventaris/base.html' %}
+
+{% block title %}
+Master Kategori
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Master Kategori</h1>
+        <p>Kelola klasifikasi dan kelompok barang gudang</p>
+    </div>
+</div>
+
+
+<div class="table-toolbar">
+
+    <a href="{% url 'tambah_kategori' %}" class="btn">
+        <i class="bi bi-plus-circle"></i>
+        Tambah Kategori
+    </a>
+
+    <a href="{% url 'import_excel' 'kategori' %}" class="btn-import">
+        <i class="bi bi-file-earmark-excel"></i>
+        Import Excel
+    </a>
+
+    {% if data_kategori %}
+
+    <form
+        method="POST"
+        action="{% url 'hapus_semua_kategori' %}"
+        onsubmit="return confirm('PERINGATAN: Hapus seluruh kategori?')"
+    >
+        {% csrf_token %}
+
+        <button type="submit" class="btn-danger">
+            <i class="bi bi-trash3"></i>
+            Hapus Semua
+        </button>
+    </form>
+
+    {% endif %}
+
+</div>
+
+
+<div class="card">
+
+    <table class="modern-table">
+
+        <thead>
+            <tr>
+                <th>Nama Kategori</th>
+                <th>Deskripsi</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+
+        {% for kategori in data_kategori %}
+
+            <tr>
+
+                <td>
+                    <div class="product-name">
+                        <i class="bi bi-tags"></i>
+
+                        <span class="category-badge">
+                            {{ kategori.nama }}
+                        </span>
+                    </div>
+                </td>
+
+                <td>
+                    {{ kategori.deskripsi|default:"-" }}
+                </td>
+
+                <td>
+
+                    <div class="action-group">
+
+                        <a
+                            href="{% url 'edit_kategori' kategori.id %}"
+                            class="action-btn edit"
+                            title="Edit Kategori"
+                        >
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+
+
+                        <form
+                            method="POST"
+                            action="{% url 'hapus_kategori' kategori.id %}"
+                            onsubmit="return confirm('Hapus kategori {{ kategori.nama }}?')"
+                        >
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="action-btn delete"
+                                title="Hapus Kategori"
+                            >
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+                <td colspan="3" class="empty-data">
+                    <i class="bi bi-tags"></i>
+                    <br><br>
+                    Belum ada data kategori
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

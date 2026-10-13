@@ -1,0 +1,225 @@
+{% extends 'inventaris/base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+Profil Saya
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+            Profil Saya
+        </h1>
+
+        <p>
+            Kelola informasi akun pengguna sistem inventaris gudang
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<div class="profile-container">
+
+
+    <div class="profile-card">
+
+
+        <!-- PROFILE HEADER -->
+
+        <div class="profile-top">
+
+
+            <div class="profile-photo">
+
+                {% if profile.foto %}
+
+                    <img
+                        src="{{ profile.foto.url }}"
+                        alt="Foto Profil"
+                    >
+
+                {% else %}
+
+                    <img
+                        src="{% static 'img/default-user.png' %}"
+                        alt="Foto Profil"
+                    >
+
+                {% endif %}
+
+            </div>
+
+
+
+            <div class="profile-title">
+
+                <h2>
+                    {{ request.user.get_full_name|default:request.user.username }}
+                </h2>
+
+
+                <p class="profile-username">
+                    @{{ request.user.username }}
+                </p>
+
+
+                <span>
+                    {{ profile.role }}
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- PROFILE FORM -->
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            {% csrf_token %}
+
+
+
+            <div class="profile-form">
+
+
+                <!-- FOTO -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.foto.id_for_label }}">
+                        Foto Profil
+                    </label>
+
+                    {{ form.foto }}
+
+                    {% if form.foto.errors %}
+
+                        <div class="form-error">
+                            {{ form.foto.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- ROLE -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.role.id_for_label }}">
+                        Role
+                    </label>
+
+                    {{ form.role }}
+
+                    {% if form.role.errors %}
+
+                        <div class="form-error">
+                            {{ form.role.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- NOMOR HP -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.no_hp.id_for_label }}">
+                        Nomor HP
+                    </label>
+
+                    {{ form.no_hp }}
+
+                    {% if form.no_hp.errors %}
+
+                        <div class="form-error">
+                            {{ form.no_hp.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- ALAMAT -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.alamat.id_for_label }}">
+                        Alamat
+                    </label>
+
+                    {{ form.alamat }}
+
+                    {% if form.alamat.errors %}
+
+                        <div class="form-error">
+                            {{ form.alamat.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ACTION -->
+
+           <div class="profile-action">
+
+    <button
+        type="submit"
+        class="profile-save"
+    >
+        <i class="bi bi-check-circle"></i>
+        Simpan Profil
+    </button>
+
+    <a
+        href="/"
+        class="profile-back"
+    >
+        <i class="bi bi-arrow-left"></i>
+        Kembali
+    </a>
+
+</div>
+
+
+        </form>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

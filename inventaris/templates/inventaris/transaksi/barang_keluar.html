@@ -1,0 +1,332 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Barang Keluar
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="page-header transaction-page-header">
+
+    <div>
+
+        <h1>
+            <i class="bi bi-box-arrow-up-right"></i>
+            Barang Keluar
+        </h1>
+
+
+        <p>
+            Proses pengeluaran barang dan pengurangan stok inventory gudang.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<div class="transaction-form-wrapper">
+
+
+
+<div class="transaction-form-card outbound">
+
+
+
+
+
+
+<div class="transaction-form-header">
+
+
+
+    <div class="transaction-form-icon outbound-icon">
+
+        <i class="bi bi-box-arrow-up-right"></i>
+
+    </div>
+
+
+
+    <div>
+
+
+        <div class="transaction-hero-badge outbound-badge">
+
+            <i class="bi bi-arrow-up-circle"></i>
+
+            OUTBOUND ACTIVE
+
+        </div>
+
+
+
+        <h2>
+            Transaksi Barang Keluar
+        </h2>
+
+
+        <span>
+            Pengeluaran barang dan pengurangan stok gudang
+        </span>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="transaction-process-info outbound-info">
+
+
+
+    <div>
+
+        <i class="bi bi-dash-circle-fill"></i>
+
+        Stok inventory akan dikurangi
+
+    </div>
+
+
+
+
+    <div>
+
+        <i class="bi bi-clock-history"></i>
+
+        Riwayat pengeluaran tersimpan
+
+    </div>
+
+
+
+
+
+    <div>
+
+        <i class="bi bi-shield-check"></i>
+
+        Validasi stok tersedia
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+
+
+<div class="transaction-form-grid">
+
+
+
+
+
+
+<div class="transaction-field">
+
+
+<label>
+
+<i class="bi bi-box-seam"></i>
+
+Barang
+
+</label>
+
+
+{{ form.barang }}
+
+
+</div>
+
+
+
+
+
+
+
+<div class="transaction-field">
+
+
+<label>
+
+<i class="bi bi-building"></i>
+
+Lokasi Pengambilan
+
+</label>
+
+
+{{ form.lokasi }}
+
+
+</div>
+
+
+
+
+
+
+
+<div class="transaction-field">
+
+
+<label>
+
+<i class="bi bi-dash-square"></i>
+
+Jumlah Keluar
+
+</label>
+
+
+{{ form.jumlah }}
+
+
+</div>
+
+
+
+
+
+
+
+<div class="transaction-field full">
+
+
+<label>
+
+<i class="bi bi-chat-left-text"></i>
+
+Catatan Pengeluaran
+
+</label>
+
+
+{{ form.keterangan }}
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="transaction-form-action">
+
+
+
+
+
+<a href="{% url 'transaksi' %}"
+
+class="transaction-back-btn">
+
+
+<i class="bi bi-arrow-left"></i>
+
+
+Kembali
+
+
+</a>
+
+
+
+
+
+
+
+<button type="submit"
+
+class="transaction-save-btn outbound-btn">
+
+
+<i class="bi bi-box-arrow-up-right"></i>
+
+
+Proses Outbound
+
+
+</button>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+</form>
+
+
+
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}

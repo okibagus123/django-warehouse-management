@@ -1,0 +1,175 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Master Data
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="page-header">
+
+    <h1>
+        Master Data
+    </h1>
+
+    <p>
+        Kelola data utama sistem gudang
+    </p>
+
+</div>
+
+
+
+
+<div class="master-grid">
+
+
+
+    <a href="{% url 'master_barang' %}" class="master-card">
+
+        <div class="master-icon blue">
+
+            <i class="bi bi-box-seam"></i>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Barang
+            </h3>
+
+            <span>
+                Kelola data SKU dan inventory
+            </span>
+
+        </div>
+
+
+    </a>
+
+
+
+
+
+    <a href="{% url 'master_kategori' %}" class="master-card">
+
+
+        <div class="master-icon green">
+
+            <i class="bi bi-tags"></i>
+
+        </div>
+
+
+
+        <div>
+
+            <h3>
+                Kategori
+            </h3>
+
+            <span>
+                Kelompok produk gudang
+            </span>
+
+        </div>
+
+
+    </a>
+
+
+
+
+
+
+    <a href="{% url 'master_supplier' %}" class="master-card">
+
+
+        <div class="master-icon orange">
+
+            <i class="bi bi-truck"></i>
+
+        </div>
+
+
+
+        <div>
+
+            <h3>
+                Supplier
+            </h3>
+
+            <span>
+                Data pemasok barang
+            </span>
+
+        </div>
+
+
+    </a>
+
+
+
+
+
+
+
+    <a href="{% url 'master_lokasi' %}" class="master-card">
+
+
+        <div class="master-icon purple">
+
+            <i class="bi bi-building"></i>
+
+        </div>
+
+
+
+        <div>
+
+            <h3>
+                Lokasi
+            </h3>
+
+            <span>
+                Manajemen area penyimpanan
+            </span>
+
+        </div>
+
+
+    </a>
+
+
+
+
+</div>
+
+
+
+
+<div class="card">
+
+    <h3>
+        Ringkasan Master Data
+    </h3>
+
+
+    <p>
+        Gunakan menu di atas untuk mengelola informasi barang,
+        kategori, supplier, dan lokasi gudang.
+    </p>
+
+
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,204 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Edit User
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="user-form-page">
+
+
+<div class="user-form-page">
+
+
+    <div class="user-form-card">
+
+
+
+        <!-- HEADER -->
+
+        <div class="user-form-header">
+
+
+            <div class="user-form-icon">
+
+                <i class="bi bi-person-gear"></i>
+
+            </div>
+
+
+
+            <div>
+
+                <h1>
+                    Edit User
+                </h1>
+
+
+                <p>
+                    Perbarui informasi akun pengguna sistem inventaris gudang
+                </p>
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+        <!-- FORM -->
+
+
+        <form 
+            method="POST"
+            autocomplete="off"
+            class="user-edit-form"
+        >
+
+
+            {% csrf_token %}
+
+
+
+
+
+            <div class="user-form-fields">
+
+
+
+                {% for field in form %}
+
+
+
+                <div class="user-field">
+
+
+
+                    <label for="{{ field.id_for_label }}">
+
+                        {{ field.label }}
+
+                    </label>
+
+
+
+
+                    {{ field }}
+
+
+
+
+
+                    {% if field.errors %}
+
+
+                    <div class="user-form-error">
+
+                        {{ field.errors }}
+
+                    </div>
+
+
+                    {% endif %}
+
+
+
+
+                </div>
+
+
+
+                {% endfor %}
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+            <!-- BUTTON -->
+
+            <div class="user-form-actions">
+
+
+
+
+
+                <button
+
+                    type="submit"
+
+                    class="user-save-btn"
+
+                >
+
+
+                    <i class="bi bi-check-circle"></i>
+
+
+                    Simpan Perubahan
+
+
+                </button>
+
+
+
+
+
+
+
+                <a
+
+                    href="{% url 'user_list' %}"
+
+                    class="user-back-btn"
+
+                >
+
+
+                    <i class="bi bi-arrow-left"></i>
+
+
+                    Kembali
+
+
+                </a>
+
+
+
+
+
+            </div>
+
+
+
+
+
+        </form>
+
+
+
+
+
+    </div>
+
+
+</div>
+
+
+
+{% endblock %}

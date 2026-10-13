@@ -1,0 +1,107 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Import {{ judul }}
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="page-header">
+
+    <h1>
+        Import {{ judul }}
+    </h1>
+
+    <p>
+        Import data master melalui file Microsoft Excel
+    </p>
+
+</div>
+
+
+<div class="card form-card">
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+    >
+
+        {% csrf_token %}
+
+
+        <div class="import-zone">
+
+            <div class="import-icon">
+
+                <i class="bi bi-file-earmark-excel"></i>
+
+            </div>
+
+
+            <h3>
+                Pilih File Excel
+            </h3>
+
+
+            <p>
+                Format file yang didukung: .xlsx
+            </p>
+
+
+            <input
+                type="file"
+                name="file_excel"
+                accept=".xlsx"
+                required
+            >
+
+        </div>
+
+
+        <div class="excel-format">
+
+            <strong>
+                Header Excel:
+            </strong>
+
+            <p>
+                {{ kolom }}
+            </p>
+
+        </div>
+
+
+        <div class="form-action">
+
+            <button
+                type="submit"
+                class="btn"
+            >
+
+                <i class="bi bi-cloud-arrow-up"></i>
+
+                Import Data
+
+            </button>
+
+
+            <a
+                href="javascript:history.back()"
+                class="btn-secondary"
+            >
+
+                Kembali
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+{% endblock %}

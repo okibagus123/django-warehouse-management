@@ -1,0 +1,95 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Edit Lokasi
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="page-header">
+
+    <div>
+
+        <h1>Edit Lokasi</h1>
+
+        <p>
+            Perbarui data lokasi gudang
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="card form-card">
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <div class="form-grid">
+
+            {% for field in form %}
+
+            <div class="form-group">
+
+                <label>
+                    {{ field.label }}
+                </label>
+
+
+                {{ field }}
+
+
+                {% if field.errors %}
+
+                <small class="error">
+                    {{ field.errors }}
+                </small>
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <div class="form-action">
+
+            <button
+                type="submit"
+                class="btn"
+            >
+
+                <i class="bi bi-check-circle"></i>
+
+                Simpan Perubahan
+
+            </button>
+
+
+            <a
+                href="{% url 'master_lokasi' %}"
+                class="btn-secondary"
+            >
+
+                <i class="bi bi-arrow-left"></i>
+
+                Batal
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+{% endblock %}

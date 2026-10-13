@@ -1,0 +1,65 @@
+{% extends 'inventaris/base.html' %}
+
+{% block title %}Detail Lokasi - {{ lokasi.nama_lokasi }}{% endblock %}
+
+{% block content %}
+<div class="page-header transaction-page-header">
+    <div>
+        <h1><i class="bi bi-building"></i> Area: {{ lokasi.nama_lokasi }}</h1>
+        <p>Kode: {{ lokasi.kode_lokasi }}</p>
+    </div>
+    <div>
+        <a href="javascript:history.back()" class="btn" style="background: #333; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none;">
+            <i class="bi bi-arrow-left"></i> Kembali
+        </a>
+    </div>
+</div>
+
+<div class="transaction-grid" style="margin-bottom: 20px;">
+    <div class="transaction-card transaction-in">
+        <div class="transaction-content">
+            <h2>Total SKU Berbeda</h2>
+            <h1 style="font-size: 2.5rem; margin: 10px 0;">{{ isi_lokasi.count }} <span style="font-size: 1rem; color: #888;">Item</span></h1>
+        </div>
+    </div>
+    <div class="transaction-card transaction-transfer">
+        <div class="transaction-content">
+            <h2>Total Unit Keseluruhan</h2>
+            <h1 style="font-size: 2.5rem; margin: 10px 0;">{{ total_unit|default:"0" }} <span style="font-size: 1rem; color: #888;">Unit Fisik</span></h1>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3 style="padding: 20px 20px 10px 20px; margin: 0; color: #fff; border-bottom: 1px solid #333;"><i class="bi bi-list-ul"></i> Daftar Barang Tersimpan</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>SKU</th>
+                    <th>Nama Barang</th>
+                    <th>Kategori</th>
+                    <th>Jumlah Tersedia</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in isi_lokasi %}
+                <tr>
+                    <td>{{ item.barang.sku }}</td>
+                    <td>
+                        <!-- Tambahkan link agar bisa melompat ke detail barang -->
+                        <a href="{% url 'detail_barang' item.barang.id %}" style="color: #00c6ff; text-decoration: none; font-weight: bold;">
+                            {{ item.barang.nama }}
+                        </a>
+                    </td>
+                    <td>{{ item.barang.kategori.nama }}</td>
+                    <td style="font-weight: bold;">{{ item.jumlah }} {{ item.barang.satuan }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4" style="text-align: center; color: #aaa;">Lokasi penyimpanan ini masih kosong.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

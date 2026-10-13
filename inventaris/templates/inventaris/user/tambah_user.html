@@ -1,0 +1,154 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Tambah User
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="user-form-page">
+
+
+    <div class="user-form-card">
+
+
+
+        <div class="user-form-header">
+
+
+            <div class="user-form-icon">
+
+                <i class="bi bi-person-plus"></i>
+
+            </div>
+
+
+            <div>
+
+                <h1>
+                    Tambah User
+                </h1>
+
+                <p>
+                    Tambahkan akun pengguna baru sistem inventaris gudang
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <form method="POST">
+
+
+            {% csrf_token %}
+
+
+
+            <div class="user-form-fields">
+
+
+                {% for field in form %}
+
+
+
+                <div class="user-field">
+
+
+                    <label>
+
+                        {{ field.label }}
+
+                    </label>
+
+
+
+                    {{ field }}
+
+
+
+                    {% if field.errors %}
+
+                    <div class="user-form-error">
+
+                        {{ field.errors }}
+
+                    </div>
+
+                    {% endif %}
+
+
+
+                </div>
+
+
+
+                {% endfor %}
+
+
+
+            </div>
+
+
+
+
+
+            <div class="user-form-actions">
+
+
+
+                <button
+                    type="submit"
+                    class="user-save-btn"
+                >
+
+                    <i class="bi bi-check-circle"></i>
+
+                    Simpan User
+
+                </button>
+
+
+
+
+                <a
+                    href="{% url 'user_list' %}"
+                    class="user-back-btn"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Kembali
+
+                </a>
+
+
+
+            </div>
+
+
+
+
+        </form>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+{% endblock %}

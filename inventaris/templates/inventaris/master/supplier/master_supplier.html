@@ -1,0 +1,144 @@
+{% extends 'inventaris/base.html' %}
+
+{% block title %}
+Master Supplier
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Master Supplier</h1>
+        <p>Kelola data pemasok dan mitra pengadaan barang</p>
+    </div>
+</div>
+
+
+<div class="table-toolbar">
+
+    <a href="{% url 'tambah_supplier' %}" class="btn">
+        <i class="bi bi-plus-circle"></i>
+        Tambah Supplier
+    </a>
+
+    <a href="{% url 'import_excel' 'supplier' %}" class="btn-import">
+        <i class="bi bi-file-earmark-excel"></i>
+        Import Excel
+    </a>
+
+    {% if data_supplier %}
+
+    <form
+        method="POST"
+        action="{% url 'hapus_semua_supplier' %}"
+        onsubmit="return confirm('PERINGATAN: Hapus seluruh supplier?')"
+    >
+        {% csrf_token %}
+
+        <button type="submit" class="btn-danger">
+            <i class="bi bi-trash3"></i>
+            Hapus Semua
+        </button>
+    </form>
+
+    {% endif %}
+
+</div>
+
+
+<div class="card">
+
+    <table class="modern-table">
+
+        <thead>
+            <tr>
+                <th>Nama Supplier</th>
+                <th>Kontak</th>
+                <th>Alamat</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+
+        {% for supplier in data_supplier %}
+
+            <tr>
+
+                <td>
+
+                    <div class="product-name">
+
+                        <i class="bi bi-truck"></i>
+
+                        <span class="supplier-name">
+                            {{ supplier.nama }}
+                        </span>
+
+                    </div>
+
+                </td>
+
+                <td>
+                    {{ supplier.kontak|default:"-" }}
+                </td>
+
+                <td>
+                    {{ supplier.alamat|default:"-" }}
+                </td>
+
+                <td>
+
+                    <div class="action-group">
+
+                        <a
+                            href="{% url 'edit_supplier' supplier.id %}"
+                            class="action-btn edit"
+                            title="Edit Supplier"
+                        >
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+
+
+                        <form
+                            method="POST"
+                            action="{% url 'hapus_supplier' supplier.id %}"
+                            onsubmit="return confirm('Hapus supplier {{ supplier.nama }}?')"
+                        >
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="action-btn delete"
+                                title="Hapus Supplier"
+                            >
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+                <td colspan="4" class="empty-data">
+                    <i class="bi bi-truck"></i>
+                    <br><br>
+                    Belum ada data supplier
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

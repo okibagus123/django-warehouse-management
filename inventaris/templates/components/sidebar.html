@@ -1,0 +1,248 @@
+<aside class="sidebar">
+
+
+    <div class="sidebar-brand">
+
+
+        <div class="brand-icon">
+
+            <i class="bi bi-box-seam"></i>
+
+        </div>
+
+
+
+        <div>
+
+            <h2>
+                Gudang WMS
+            </h2>
+
+            <span>
+                Inventory System
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <nav class="sidebar-menu">
+
+
+
+
+
+        <a href="{% url 'dasbor' %}" class="menu-item">
+
+
+            <i class="bi bi-grid"></i>
+
+            <span>
+                Dashboard
+            </span>
+
+
+        </a>
+
+
+
+
+
+
+
+        <div class="menu-title">
+
+            MASTER DATA
+
+        </div>
+
+
+
+
+
+
+
+        <a href="{% url 'master' %}" class="menu-item">
+
+
+            <i class="bi bi-box"></i>
+
+
+            <span>
+                Barang
+            </span>
+
+
+        </a>
+
+
+
+
+
+
+        <a href="{% url 'master_kategori' %}" class="menu-item">
+
+
+            <i class="bi bi-tags"></i>
+
+
+            <span>
+                Kategori
+            </span>
+
+
+        </a>
+
+
+
+
+
+
+
+        <a href="{% url 'master_supplier' %}" class="menu-item">
+
+
+            <i class="bi bi-truck"></i>
+
+
+            <span>
+                Supplier
+            </span>
+
+
+        </a>
+
+
+
+
+
+
+
+        <a href="{% url 'master_lokasi' %}" class="menu-item">
+
+
+            <i class="bi bi-building"></i>
+
+
+            <span>
+                Lokasi
+            </span>
+
+
+        </a>
+
+
+
+
+
+
+
+
+        <div class="menu-title">
+
+            OPERASIONAL
+
+        </div>
+
+<a href="{% url 'adjustment_stok' %}" class="menu-item">
+
+    <i class="bi bi-arrow-left-right"></i>
+
+    <span>
+        Stock Adjustment
+    </span>
+
+</a>
+
+        <a href="{% url 'transaksi' %}" class="menu-item">
+
+
+            <i class="bi bi-arrow-left-right"></i>
+
+
+            <span>
+                Transaksi
+            </span>
+
+
+        </a>
+        
+
+
+
+
+<!-- ========================= -->
+<!-- WMS MENU -->
+<!-- ========================= -->
+
+
+<div class="menu-dropdown">
+
+
+    <a href="#" class="menu-item">
+
+
+        <i class="bi bi-bar-chart"></i>
+
+
+        <span>
+            Monitoring WMS
+        </span>
+
+
+        <i class="bi bi-chevron-down menu-arrow"></i>
+
+
+    </a>
+
+
+
+
+    <div class="submenu">
+
+
+        <a href="{% url 'wms_monitor' %}">
+
+            <i class="bi bi-speedometer2"></i>
+
+            Dashboard WMS
+
+        </a>
+
+
+
+        <a href="{% url 'stok_barang' %}">
+
+            <i class="bi bi-boxes"></i>
+
+            Stok Barang
+
+        </a>
+
+
+
+        <a href="{% url 'lokasi_stok' %}">
+
+            <i class="bi bi-geo-alt"></i>
+
+            Lokasi Stok
+
+        </a>
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+</aside>

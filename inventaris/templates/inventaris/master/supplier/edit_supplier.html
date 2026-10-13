@@ -1,0 +1,247 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+
+Edit Supplier
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+<div class="page-header">
+
+
+    <div>
+
+        <h1>
+            <i class="bi bi-truck"></i>
+            Edit Supplier
+        </h1>
+
+
+        <p>
+            Perbarui informasi pemasok dan mitra pengadaan barang
+        </p>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<div class="warehouse-form-wrapper">
+
+
+
+<div class="warehouse-form-card">
+
+
+
+
+
+<div class="warehouse-form-top">
+
+
+    <div class="warehouse-icon-box">
+
+        <i class="bi bi-pencil-square"></i>
+
+    </div>
+
+
+
+    <div>
+
+        <h2>
+            Edit Data Supplier
+        </h2>
+
+
+        <span>
+            Supplier Management System
+        </span>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+
+<div class="warehouse-grid">
+
+
+
+
+
+<div class="warehouse-field full">
+
+
+<label>
+
+<i class="bi bi-building"></i>
+
+Nama Supplier
+
+</label>
+
+
+{{ form.nama }}
+
+
+</div>
+
+
+
+
+
+
+
+<div class="warehouse-field">
+
+
+<label>
+
+<i class="bi bi-telephone"></i>
+
+Kontak
+
+</label>
+
+
+{{ form.kontak }}
+
+
+</div>
+
+
+
+
+
+
+
+<div class="warehouse-field full">
+
+
+<label>
+
+<i class="bi bi-geo-alt"></i>
+
+Alamat
+
+</label>
+
+
+
+{{ form.alamat }}
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="warehouse-action">
+
+
+
+
+
+<a href="{% url 'master_supplier' %}"
+
+class="warehouse-back">
+
+
+<i class="bi bi-arrow-left"></i>
+
+
+Kembali
+
+
+</a>
+
+
+
+
+
+
+
+<button type="submit"
+
+class="warehouse-save">
+
+
+<i class="bi bi-check-circle"></i>
+
+
+Simpan Supplier
+
+
+</button>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</form>
+
+
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,263 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Dashboard WMS
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="dashboard-header">
+
+
+    <div>
+
+        <h1>
+            Dashboard Gudang
+        </h1>
+
+        <p>
+            Monitoring aktivitas inventory secara realtime
+        </p>
+
+    </div>
+
+
+
+</div>
+
+
+
+
+<div class="dashboard-grid">
+
+
+
+    <div class="stat-card blue">
+
+
+        <div class="stat-icon">
+
+            <i class="bi bi-box-seam"></i>
+
+        </div>
+
+
+        <div>
+
+            <span>
+                Total SKU
+            </span>
+
+            <h2>
+                {{ jumlah_sku }}
+            </h2>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="stat-card green">
+
+
+        <div class="stat-icon">
+
+            <i class="bi bi-box-arrow-in-down"></i>
+
+        </div>
+
+
+        <div>
+
+            <span>
+                Barang Masuk
+            </span>
+
+            <h2>
+                {{ total_masuk }}
+            </h2>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="stat-card orange">
+
+
+        <div class="stat-icon">
+
+            <i class="bi bi-box-arrow-up"></i>
+
+        </div>
+
+
+        <div>
+
+            <span>
+                Barang Keluar
+            </span>
+
+            <h2>
+                {{ total_keluar }}
+            </h2>
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <div class="stat-card purple">
+
+
+        <div class="stat-icon">
+
+            <i class="bi bi-building"></i>
+
+        </div>
+
+
+        <div>
+
+            <span>
+                Lokasi Gudang
+            </span>
+
+            <h2>
+                0
+            </h2>
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="content-grid">
+
+
+
+    <div class="card">
+
+
+        <h3>
+            Aktivitas Gudang
+        </h3>
+
+
+        <div class="empty-chart">
+
+
+            <i class="bi bi-bar-chart-line"></i>
+
+
+            <p>
+                Grafik pergerakan stok akan tampil disini
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="card">
+
+
+        <h3>
+            Status Sistem
+        </h3>
+
+
+        <div class="status-box">
+
+
+            <div>
+
+                <span class="status-dot"></span>
+
+                Database Online
+
+            </div>
+
+
+
+            <div>
+
+                <span class="status-dot"></span>
+
+                Inventory Module Aktif
+
+            </div>
+
+
+
+            <div>
+
+                <span class="status-dot"></span>
+
+                WMS Ready
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h3>
+Informasi Gudang
+</h3>
+
+
+<p>
+Sistem manajemen gudang terintegrasi dengan modul barang,
+supplier, kategori, lokasi, dan transaksi.
+</p>
+
+
+</div>
+
+
+
+
+{% endblock %}

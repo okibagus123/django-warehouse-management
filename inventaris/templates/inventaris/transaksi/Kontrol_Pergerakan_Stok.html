@@ -1,0 +1,502 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Kontrol Pergerakan Stok
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="page-header transaction-page-header">
+
+
+    <div>
+
+        <h1>
+
+            <i class="bi bi-bar-chart-line-fill"></i>
+
+            Kontrol Pergerakan Stok
+
+        </h1>
+
+
+        <p>
+
+            Monitoring seluruh aktivitas pergerakan barang
+            masuk, keluar, dan transfer antar lokasi gudang.
+
+        </p>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<div class="transaction-hero-panel">
+
+
+    <div class="transaction-hero-overlay"></div>
+
+
+    <div class="transaction-hero-content">
+
+
+        <div class="transaction-hero-badge">
+
+            <i class="bi bi-shield-check"></i>
+
+            Stock Monitoring System
+
+        </div>
+
+
+
+        <h2>
+
+            Histori Pergerakan Inventory
+
+        </h2>
+
+
+
+        <p>
+
+            Setiap perubahan stok tercatat otomatis untuk memastikan
+            transparansi dan kontrol inventory yang akurat.
+
+        </p>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<div class="card transaction-info-card">
+
+
+    <div class="transaction-info-icon">
+
+        <i class="bi bi-clock-history"></i>
+
+    </div>
+
+
+
+    <div class="transaction-info-content">
+
+
+        <h3>
+
+            Riwayat Transaksi Stok
+
+        </h3>
+
+
+
+        <p>
+
+            Berikut adalah daftar aktivitas inventory yang telah dilakukan.
+
+        </p>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="card">
+
+
+<div class="table-container">
+
+
+<table>
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+Tanggal
+</th>
+
+
+<th>
+Barang
+</th>
+
+
+<th>
+SKU
+</th>
+
+
+<th>
+Kategori
+</th>
+
+
+<th>
+Supplier
+</th>
+
+
+<th>
+Tipe
+</th>
+
+
+<th>
+Jumlah
+</th>
+
+
+<th>
+Lokasi Asal
+</th>
+
+
+<th>
+Lokasi Tujuan
+</th>
+
+
+<th>
+Stok Saat Ini
+</th>
+
+<th>
+User
+</th>
+
+<th>
+Keterangan
+</th>
+
+</tr>
+
+
+</thead>
+
+
+
+
+
+<tbody>
+
+
+
+{% for item in movements %}
+
+
+
+<tr>
+
+
+
+<td>
+
+{{ item.tanggal|date:"d-m-Y H:i" }}
+
+</td>
+
+
+
+
+
+<td>
+
+{{ item.barang.nama }}
+
+</td>
+
+
+
+
+
+<td>
+
+{{ item.barang.sku }}
+
+</td>
+
+
+
+
+
+<td>
+
+
+{% if item.barang.kategori %}
+
+{{ item.barang.kategori.nama }}
+
+{% else %}
+
+-
+
+{% endif %}
+
+
+</td>
+
+
+
+
+
+<td>
+
+
+{% if item.barang.supplier %}
+
+{{ item.barang.supplier.nama }}
+
+{% else %}
+
+-
+
+{% endif %}
+
+
+</td>
+
+
+
+
+<td>
+
+
+{% if item.tipe == "MASUK" %}
+
+<span class="badge-stock-in">
+
+{{ item.get_tipe_display }}
+
+</span>
+
+
+{% elif item.tipe == "KELUAR" %}
+
+<span class="badge-stock-out">
+
+{{ item.get_tipe_display }}
+
+</span>
+
+
+{% elif item.tipe == "TRANSFER" %}
+
+<span class="badge-stock-transfer">
+
+{{ item.get_tipe_display }}
+
+</span>
+
+
+{% else %}
+
+<span class="badge-stock-adjustment">
+
+{{ item.get_tipe_display }}
+
+</span>
+
+
+{% endif %}
+
+
+</td>
+
+
+<td>
+
+{{ item.jumlah }}
+{{ item.barang.satuan }}
+
+</td>
+
+
+
+
+
+
+<td>
+
+
+{% if item.lokasi_asal %}
+
+{{ item.lokasi_asal.nama_lokasi }}
+
+{% else %}
+
+-
+
+{% endif %}
+
+
+</td>
+
+
+
+
+
+
+<td>
+
+
+{% if item.lokasi_tujuan %}
+
+{{ item.lokasi_tujuan.nama_lokasi }}
+
+{% else %}
+
+-
+
+{% endif %}
+
+
+</td>
+
+
+
+
+
+
+
+<td>
+
+
+{% for inv in item.barang.inventory_set.all %}
+
+
+<div>
+
+{{ inv.lokasi.nama_lokasi }}
+
+:
+
+{{ inv.jumlah }}
+
+{{ item.barang.satuan }}
+
+
+</div>
+
+
+
+{% empty %}
+
+
+-
+
+
+{% endfor %}
+
+
+</td>
+
+
+
+<td>
+
+{% if item.user %}
+
+{{ item.user.username }}
+
+{% else %}
+
+-
+
+{% endif %}
+
+</td>
+
+
+<td>
+
+{% if item.keterangan %}
+
+{{ item.keterangan }}
+
+{% else %}
+
+-
+
+{% endif %}
+
+</td>
+
+
+
+
+</tr>
+
+
+
+
+
+{% empty %}
+
+
+
+<tr>
+
+
+<td colspan="12">
+
+Belum ada pergerakan stok
+
+</td>
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+{% endblock %}

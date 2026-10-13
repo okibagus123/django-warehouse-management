@@ -1,0 +1,84 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Edit Kategori
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="page-header">
+
+    <h1>Edit Kategori</h1>
+
+    <p>
+        Perbarui informasi kategori {{ kategori.nama }}
+    </p>
+
+</div>
+
+
+<div class="card form-card">
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <div class="form-grid">
+
+            {% for field in form %}
+
+            <div class="form-group">
+
+                <label>
+                    {{ field.label }}
+                </label>
+
+                {{ field }}
+
+                {% if field.errors %}
+
+                <small class="error">
+                    {{ field.errors }}
+                </small>
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <div class="form-action">
+
+            <button type="submit" class="btn">
+
+                <i class="bi bi-check-circle"></i>
+
+                Simpan Perubahan
+
+            </button>
+
+
+            <a
+                href="{% url 'master_kategori' %}"
+                class="btn-secondary"
+            >
+
+                Batal
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+{% endblock %}

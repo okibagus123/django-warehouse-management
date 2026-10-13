@@ -1,0 +1,367 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Validasi Operasional
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="page-header transaction-page-header">
+
+
+<div>
+
+
+<h1>
+
+<i class="bi bi-shield-check"></i>
+
+Validasi Operasional
+
+</h1>
+
+
+
+<p>
+
+Pemeriksaan kondisi inventory dan validitas transaksi gudang.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="transaction-hero-panel">
+
+
+<div class="transaction-hero-overlay"></div>
+
+
+
+<div class="transaction-hero-content">
+
+
+<div class="transaction-hero-badge">
+
+<i class="bi bi-check-circle-fill"></i>
+
+Operational Control
+
+</div>
+
+
+
+<h2>
+
+Pusat Validasi Gudang
+
+</h2>
+
+
+
+<p>
+
+Pastikan seluruh aktivitas inventory berjalan sesuai prosedur
+operasional dan tidak terdapat kesalahan pencatatan stok.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="transaction-grid">
+
+
+
+<div class="card transaction-info-card">
+
+
+<div class="transaction-info-icon">
+
+
+<i class="bi bi-box-seam"></i>
+
+
+</div>
+
+
+
+<div class="transaction-info-content">
+
+
+<h3>
+
+Validasi Inventory
+
+</h3>
+
+
+<p>
+
+{% if stok_valid %}
+
+Semua stok inventory dalam kondisi normal.
+
+{% else %}
+
+Terdapat data inventory yang perlu diperiksa.
+
+{% endif %}
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="card transaction-info-card transaction-info-highlight">
+
+
+<div class="transaction-info-icon warning">
+
+
+<i class="bi bi-exclamation-triangle-fill"></i>
+
+
+</div>
+
+
+
+<div class="transaction-info-content">
+
+
+<h3>
+
+Pemeriksaan Transaksi
+
+</h3>
+
+
+<p>
+
+Memastikan transaksi tidak menyebabkan stok negatif
+dan seluruh movement memiliki data lengkap.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<div class="card-header">
+
+
+<h3>
+
+<i class="bi bi-list-check"></i>
+
+Hasil Validasi Sistem
+
+</h3>
+
+
+</div>
+
+
+
+
+<div class="table-container">
+
+
+<table>
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+Pemeriksaan
+</th>
+
+
+<th>
+Status
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+
+Stok tidak bernilai negatif
+
+</td>
+
+
+<td>
+
+<span class="badge-success">
+
+<i class="bi bi-check-circle"></i>
+
+Aman
+
+</span>
+
+</td>
+
+
+</tr>
+
+
+
+
+
+<tr>
+
+<td>
+
+Lokasi inventory tersedia
+
+</td>
+
+
+<td>
+
+<span class="badge-success">
+
+<i class="bi bi-check-circle"></i>
+
+Aman
+
+</span>
+
+</td>
+
+
+</tr>
+
+
+
+
+
+<tr>
+
+<td>
+
+Histori transaksi lengkap
+
+</td>
+
+
+<td>
+
+<span class="badge-success">
+
+<i class="bi bi-check-circle"></i>
+
+Aman
+
+</span>
+
+</td>
+
+
+</tr>
+
+
+
+
+<tr>
+
+<td>
+
+Transfer lokasi valid
+
+</td>
+
+
+<td>
+
+<span class="badge-success">
+
+<i class="bi bi-check-circle"></i>
+
+Aman
+
+</span>
+
+</td>
+
+
+</tr>
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+
+{% endblock %}

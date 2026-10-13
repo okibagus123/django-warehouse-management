@@ -1,0 +1,217 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>
+
+        {% block title %}
+
+        Gudang Utama WMS
+
+        {% endblock %}
+
+    </title>
+
+
+
+    <!-- GOOGLE FONT -->
+
+    <link 
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" 
+    rel="stylesheet">
+
+
+
+    <!-- CSS UTAMA -->
+
+    <link 
+    rel="stylesheet" 
+    href="{% static 'css/style.css' %}">
+
+
+
+    <!-- BOOTSTRAP ICON -->
+
+    <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" 
+    rel="stylesheet">
+
+
+</head>
+
+
+
+<body>
+
+
+<div class="app-container">
+
+
+    <!-- SIDEBAR -->
+
+    {% include 'components/sidebar.html' %}
+
+
+
+    <div class="main-wrapper">
+
+
+
+        <!-- NAVBAR -->
+
+        {% include 'components/navbar.html' %}
+
+
+
+
+        <!-- CONTENT -->
+
+        <main class="content-area">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </main>
+
+
+
+
+        <!-- FOOTER -->
+
+        {% include 'components/footer.html' %}
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- JAVASCRIPT UTAMA -->
+
+<script src="{% static 'js/app.js' %}"></script>
+
+
+
+{% block script %}
+
+{% endblock %}
+
+
+
+
+<!-- SWEETALERT -->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+
+<!-- DJANGO MESSAGE POPUP -->
+
+{% if messages %}
+
+
+{% for message in messages %}
+
+
+<script>
+
+
+Swal.fire({
+
+
+    title:
+
+    "{% if message.tags == 'success' %}Berhasil!{% elif message.tags == 'error' %}Gagal!{% elif message.tags == 'warning' %}Peringatan!{% else %}Informasi{% endif %}",
+
+
+
+    text:
+
+    "{{ message }}",
+
+
+
+    icon:
+
+    "{% if message.tags == 'success' %}success{% elif message.tags == 'error' %}error{% elif message.tags == 'warning' %}warning{% else %}info{% endif %}",
+
+
+
+    background: "#0f172a",
+
+
+
+    color: "#ffffff",
+
+
+
+    confirmButtonColor: "#00c6ff",
+
+
+
+    confirmButtonText: "OK",
+
+
+
+    showConfirmButton: true,
+
+
+
+    timer: 3000,
+
+
+
+    timerProgressBar: true,
+
+
+
+    customClass: {
+
+
+        popup: "premium-alert",
+
+
+        confirmButton: "premium-alert-button"
+
+
+    }
+
+
+
+});
+
+
+
+</script>
+
+
+{% endfor %}
+
+
+{% endif %}
+
+
+
+
+
+</body>
+
+</html>

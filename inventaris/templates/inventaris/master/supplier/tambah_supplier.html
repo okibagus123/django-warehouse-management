@@ -1,0 +1,102 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Tambah Supplier
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="page-header">
+
+
+<h1>
+Tambah Supplier
+</h1>
+
+
+<p>
+Tambahkan data pemasok baru
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="card form-card">
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+<div class="form-grid">
+
+
+{% for field in form %}
+
+
+<div class="form-group">
+
+
+<label>
+{{ field.label }}
+</label>
+
+
+{{ field }}
+
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+
+
+
+<div class="form-action">
+
+
+<button type="submit" class="btn">
+
+<i class="bi bi-save"></i>
+
+Simpan Supplier
+
+</button>
+
+
+
+<a href="{% url 'master_supplier' %}" class="btn-secondary">
+
+Kembali
+
+</a>
+
+
+</div>
+
+
+</form>
+
+
+</div>
+
+
+
+{% endblock %}

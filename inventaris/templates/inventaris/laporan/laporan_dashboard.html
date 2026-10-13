@@ -1,0 +1,40 @@
+{% extends 'inventaris/base.html' %}
+
+{% block title %}Laporan & Cetak Data{% endblock %}
+
+{% block content %}
+<div class="page-header transaction-page-header">
+    <div>
+        <h1><i class="bi bi-file-earmark-bar-graph"></i> Laporan WMS</h1>
+        <p>Cetak dan unduh data gudang dalam format Excel/CSV untuk keperluan pembukuan dan analisis.</p>
+    </div>
+</div>
+
+<div class="report-grid">
+    
+    <!-- Laporan Inventory -->
+    <div class="report-card">
+        <div class="report-icon">
+            <i class="bi bi-boxes"></i>
+        </div>
+        <h3 class="report-title">Laporan Posisi Stok (Inventory)</h3>
+        <p class="report-desc">Unduh data keseluruhan stok barang saat ini beserta lokasi penyimpanannya, jumlah unit, dan status ketersediaan.</p>
+        <a href="{% url 'export_inventory' %}" class="btn-export">
+            <i class="bi bi-file-earmark-excel"></i> Download CSV / Excel
+        </a>
+    </div>
+
+    <!-- Laporan Audit/Transaksi -->
+    <div class="report-card">
+        <div class="report-icon">
+            <i class="bi bi-clock-history"></i>
+        </div>
+        <h3 class="report-title">Laporan Riwayat Transaksi</h3>
+        <p class="report-desc">Unduh log aktivitas barang masuk, keluar, transfer antar gudang, dan penyesuaian (adjustment) stok (Audit Trail).</p>
+        <a href="{% url 'export_transaksi' %}" class="btn-export">
+            <i class="bi bi-file-earmark-excel"></i> Download CSV / Excel
+        </a>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,223 @@
+{% extends 'inventaris/base.html' %}
+
+
+{% block title %}
+Lokasi Stok
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="page-header transaction-page-header">
+
+
+<div>
+
+
+<h1>
+
+<i class="bi bi-geo-alt-fill"></i>
+
+Lokasi Stok
+
+</h1>
+
+
+<p>
+
+Monitoring isi barang pada setiap lokasi penyimpanan gudang.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="transaction-hero-panel">
+
+
+<div class="transaction-hero-content">
+
+
+<div class="transaction-hero-badge">
+
+<i class="bi bi-building"></i>
+
+Warehouse Location
+
+</div>
+
+
+
+<h2>
+
+Distribusi Inventory Berdasarkan Lokasi
+
+</h2>
+
+
+<p>
+
+Melihat jumlah barang yang tersimpan pada setiap area gudang.
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- Form Pencarian -->
+<div class="search-filter-container" style="margin-bottom: 20px; display: flex; gap: 10px;">
+    <form method="GET" style="display: flex; gap: 10px; width: 100%;">
+        
+        <!-- Input dengan atribut list -->
+        <input type="text" name="q" value="{{ query }}" list="saran-lokasi" autocomplete="off" placeholder="Cari Kode atau Nama Lokasi..." 
+               style="padding: 10px; width: 300px; border-radius: 6px; border: 1px solid #444; background: #1e1e2d; color: #fff;">
+        
+        <!-- Data List untuk Suggestions -->
+        <datalist id="saran-lokasi">
+            {% for loc in semua_lokasi %}
+                <option value="{{ loc.nama_lokasi }}"></option>
+                <option value="{{ loc.kode_lokasi }}"></option>
+            {% endfor %}
+        </datalist>
+
+        <button type="submit" style="padding: 10px 20px; border-radius: 6px; background: #007bff; color: white; border: none; cursor: pointer;">
+            <i class="bi bi-search"></i> Cari
+        </button>
+        {% if query %}
+        <a href="{% url 'lokasi_stok' %}" style="padding: 10px 20px; border-radius: 6px; background: #6c757d; color: white; text-decoration: none;">Reset</a>
+        {% endif %}
+    </form>
+</div>
+
+
+
+<div class="card">
+
+
+<div class="table-container">
+
+
+<table>
+
+
+<thead>
+
+
+<tr>
+
+<th>
+Kode Lokasi
+</th>
+
+
+<th>
+Nama Lokasi
+</th>
+
+
+<th>
+Jumlah SKU
+</th>
+
+
+<th>
+Total Unit
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+
+{% for lokasi in lokasi_stok %}
+
+
+
+<tr>
+
+
+<td>
+{{ lokasi.kode_lokasi }}
+</td>
+
+
+<td>
+    <a href="{% url 'detail_lokasi' lokasi.id %}" class="link-detail">
+        {{ lokasi.nama_lokasi }}
+    </a>
+</td>
+
+
+<td>
+{{ lokasi.total_barang }}
+</td>
+
+
+<td>
+{{ lokasi.total_unit }}
+</td>
+
+
+</tr>
+
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="4">
+
+Belum ada data lokasi
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+{% endblock %}

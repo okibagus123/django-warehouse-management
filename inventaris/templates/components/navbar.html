@@ -1,0 +1,229 @@
+{% load static %}
+
+
+<header class="navbar-premium">
+
+
+
+    <div class="navbar-title">
+
+
+        <div class="navbar-logo">
+
+            <i class="bi bi-box-seam"></i>
+
+        </div>
+
+
+
+        <div>
+
+
+            <h2>
+                SISTEM INVENTARIS GUDANG
+            </h2>
+
+
+            <span>
+                Warehouse Management System
+            </span>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+    <div class="navbar-right">
+
+
+
+
+
+        <div class="notification-premium">
+
+
+            <i class="bi bi-bell"></i>
+
+
+            <span>
+                3
+            </span>
+
+
+        </div>
+
+
+
+
+
+
+
+
+        <div class="user-menu">
+
+
+
+            <button class="user-profile-premium">
+
+
+
+                {% if request.user.userprofile.foto %}
+
+
+                <img 
+                src="{{ request.user.userprofile.foto.url }}"
+                class="user-avatar-premium">
+
+
+                {% else %}
+
+
+                <img 
+                src="{% static 'img/default-user.png' %}"
+                class="user-avatar-premium">
+
+
+                {% endif %}
+
+
+
+
+
+                <div class="user-info-premium">
+
+
+                    <strong>
+                        {{ request.user.username }}
+                    </strong>
+
+
+                    <span>
+                        {{ request.user.userprofile.role }}
+                    </span>
+
+
+                </div>
+
+
+
+
+                <i class="bi bi-chevron-down"></i>
+
+
+
+            </button>
+
+
+            <div class="user-dropdown-premium">
+
+<a href="{% url 'laporan' %}">
+
+
+                    <i class="bi bi-person-circle"></i>
+
+
+                    laporan saya
+
+
+                </a>
+
+
+
+                <a href="{% url 'profil' %}">
+
+
+                    <i class="bi bi-person-circle"></i>
+
+
+                    Profil Saya
+
+
+                </a>
+
+
+
+
+
+
+
+                <a href="{% url 'user_list' %}">
+
+
+                    <i class="bi bi-people"></i>
+
+
+                    Manajemen User
+
+
+                </a>
+
+
+
+
+
+
+
+                <a href="{% url 'tambah_user' %}">
+
+
+                    <i class="bi bi-person-plus"></i>
+
+
+                    Tambah User
+
+
+                </a>
+
+
+
+
+
+
+                <hr>
+
+
+
+
+
+
+
+                <a href="{% url 'logout' %}" 
+                class="logout-link-premium">
+
+
+                    <i class="bi bi-power"></i>
+
+
+                    Logout
+
+
+                </a>
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+</header>
